@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ChatterBox.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChatterBox.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -20,6 +22,7 @@ namespace ChatterBox.API.Controllers
 
         }
         // GET api/values
+       
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
@@ -28,6 +31,7 @@ namespace ChatterBox.API.Controllers
         }
 
         // GET api/values/5
+         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> Getvalue(int id)
         {
