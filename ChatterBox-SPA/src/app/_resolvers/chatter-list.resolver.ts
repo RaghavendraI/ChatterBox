@@ -13,6 +13,7 @@ export class ChatterListResolver implements Resolve<User[]> {
     private router: Router,
     private alertify: AlertifyService
   ) {}
+  
 
   resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
    return this.userService.getUsers().pipe(
