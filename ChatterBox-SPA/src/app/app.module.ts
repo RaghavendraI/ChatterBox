@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { NgxGalleryModule } from 'ngx-gallery';
 import { appRoutes } from './routes';
 
 import { AppComponent } from './app.component';
@@ -24,6 +25,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ChatterDetailComponent } from './chatters/chatter-detail/chatter-detail.component';
 import { ChatterDetailResolver } from './_resolvers/chatter-detail.resolver';
 import { ChatterListResolver } from './_resolvers/chatter-list.resolver';
+import { ChatterEditComponent } from './chatters/chatter-edit/chatter-edit.component';
+import { ChatterEditResolver } from './_resolvers/chatter-edit.resolver';
+import { PhotoEditorComponent } from './chatters/photo-editor/photo-editor.component';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -39,7 +44,9 @@ export function tokenGetter() {
     MessagesComponent,
     ChatterListComponent,
     ChatterCardComponent,
-    ChatterDetailComponent
+    ChatterDetailComponent,
+    ChatterEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +55,7 @@ export function tokenGetter() {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
+    NgxGalleryModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -61,9 +69,11 @@ export function tokenGetter() {
     ErrorInterceptorProvider,
     AlertifyService,
     AuthGuard,
+    PreventUnsavedChanges,
     UserService,
     ChatterDetailResolver,
-    ChatterListResolver
+    ChatterListResolver,
+    ChatterEditResolver
   ],
   bootstrap: [AppComponent]
 })

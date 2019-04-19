@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using ChatterBox.API.Data;
@@ -15,8 +17,10 @@ namespace ChatterBox.API.Controllers
     {
         private readonly IChatterBoxRepository _chatter;
         private readonly IMapper _mapper;
+       
         public UsersController(IChatterBoxRepository chatter, IMapper mapper)
         {
+            
             _mapper = mapper;
             _chatter = chatter;
         }
@@ -34,6 +38,20 @@ namespace ChatterBox.API.Controllers
             var user = await _chatter.GetUser(id);
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
             return Ok(userToReturn);
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userforUpdateDto)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            var userFromRepo = await _chatter.GetUser(id);
+            _mapper.Map(userforUpdateDto, userFromRepo);
+            if (await _chatter.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating user {id} failed on save");
 
         }
     }

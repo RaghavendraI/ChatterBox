@@ -26,6 +26,7 @@ namespace ChatterBox.API.Helpers
                     opt.MapFrom((s,d) => s.DateOfBirth.CalculateAge());
                 });
             CreateMap<Photo, PhotosForDetailDto>();
+            CreateMap<UserForUpdateDto,User>();
         }
     }
 }
