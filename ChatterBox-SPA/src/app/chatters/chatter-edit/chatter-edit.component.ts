@@ -34,7 +34,9 @@ export class ChatterEditComponent implements OnInit {
       this.user = data['user'];
     });
 
-    // this.authService.currenPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+     this.authService.currenPhotoUrl.subscribe(
+       photoUrl => (this.photoUrl = photoUrl)
+     );
   }
 
   updateUser() {
@@ -49,5 +51,9 @@ export class ChatterEditComponent implements OnInit {
           this.alertify.error(error);
         }
       );
+  }
+
+  updateMainPhoto(photoUrl){
+    this.user.photoUrl= photoUrl;
   }
 }

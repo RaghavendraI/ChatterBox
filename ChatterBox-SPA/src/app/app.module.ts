@@ -29,6 +29,7 @@ import { ChatterEditComponent } from './chatters/chatter-edit/chatter-edit.compo
 import { ChatterEditResolver } from './_resolvers/chatter-edit.resolver';
 import { PhotoEditorComponent } from './chatters/photo-editor/photo-editor.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -56,6 +57,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     NgxGalleryModule,
+    FileUploadModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
