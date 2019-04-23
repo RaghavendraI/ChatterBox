@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ChatterBox.API.Data;
 using ChatterBox.API.Dtos;
+using ChatterBox.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatterBox.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
