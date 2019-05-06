@@ -1,5 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ChatterBox.API.Helpers
 {
@@ -11,6 +13,14 @@ namespace ChatterBox.API.Helpers
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
             response.Headers.Add("Access-Control-Allow-Origin", "*");
             // response.Headers.Add("access-control-allow-origin", "*");
+        }
+
+        public static void AddPagination(this HttpResponse response,int currentPage, int itemsPerPage, int totalItems, int totalPages){
+            var paginationHeader= new PaginationHeader(currentPage,itemsPerPage,totalItems,totalPages);
+            var camelCaseFormatting= new JsonSerializerSettings();
+            camelCaseFormatting.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            response.Headers.Add("Pagination",JsonConvert.SerializeObject(paginationHeader,camelCaseFormatting));
+            response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
 
          public static int CalculateAge(this DateTime theDateTime)
