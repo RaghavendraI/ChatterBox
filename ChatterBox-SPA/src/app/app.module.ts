@@ -31,6 +31,7 @@ import { ChatterEditResolver } from './_resolvers/chatter-edit.resolver';
 import { PhotoEditorComponent } from './chatters/photo-editor/photo-editor.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -81,7 +82,8 @@ export function tokenGetter() {
     UserService,
     ChatterDetailResolver,
     ChatterListResolver,
-    ChatterEditResolver
+    ChatterEditResolver,
+    ListsResolver
   ],
   bootstrap: [AppComponent]
 })

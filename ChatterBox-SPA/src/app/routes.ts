@@ -10,6 +10,7 @@ import { ChatterListResolver } from './_resolvers/chatter-list.resolver';
 import { ChatterEditComponent } from './chatters/chatter-edit/chatter-edit.component';
 import { ChatterEditResolver } from './_resolvers/chatter-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,7 @@ export const appRoutes: Routes = [
       { path: 'chatter/edit', component: ChatterEditComponent, 
               resolve: {user: ChatterEditResolver}, canDeactivate:[PreventUnsavedChanges] },
       { path: 'messages', component: MessagesComponent },
-      { path: 'lists', component: ListsComponent }
+      { path: 'lists', component: ListsComponent ,resolve: {users: ListsResolver}}
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
